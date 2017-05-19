@@ -14,6 +14,10 @@ h6 {
   font-family: "Roboto", sans-serif;
 }
 
+body {
+  max-width: 60%;
+  margin : auto;
+}
 .clear-fix {
   overflow: auto;
 }
@@ -169,7 +173,9 @@ img {
 
 span {
   padding: 5px;
+  color: white;
 }
+
 
 #lets-connect {
   text-align: center;

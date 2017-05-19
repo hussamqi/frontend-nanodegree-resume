@@ -13,7 +13,7 @@ These are HTML strings. As part of the course, you'll be using JavaScript functi
 replace the %data% placeholder text you see in them.
 */
 var HTMLheaderName = '<h1 id="name">%data%</h1>';
-var HTMLheaderRole = '<span>%data%</span><hr>';
+var HTMLheaderRole = '<span >%data%</span><hr>';
 
 var HTMLcontactGeneric = '<li class="flex-item"><span class="orange-text">%contact%</span><span class="white-text">%data%</span></li>';
 var HTMLmobile = '<li class="flex-item"><span class="orange-text">mobile</span><span class="white-text">%data%</span></li>';
@@ -40,7 +40,7 @@ var HTMLprojectStart = '<div class="project-entry"></div>';
 var HTMLprojectTitle = '<a href="#">%data%</a>';
 var HTMLprojectDates = '<div class="date-text">%data%</div>';
 var HTMLprojectDescription = '<p><br>%data%</p>';
-var HTMLprojectImage = '<img src="%data%">';
+var HTMLprojectImage = '<img src="%data%" width="25%">';
 
 var HTMLschoolStart = '<div class="education-entry"></div>';
 var HTMLschoolName = '<a href="#">%data%';
@@ -53,7 +53,7 @@ var HTMLonlineClasses = '<h3>Online Classes</h3>';
 var HTMLonlineTitle = '<a href="#">%data%';
 var HTMLonlineSchool = ' - %data%</a>';
 var HTMLonlineDates = '<div class="date-text">%data%</div>';
-var HTMLonlineURL = '<br><a href="#">%data%</a>';
+var HTMLonlineURL = '<br><a href="%data%" target="_blank">%data%</a>';
 
 var internationalizeButton = '<button>Internationalize</button>';
 var googleMap = '<div id="map"></div>';
@@ -124,6 +124,7 @@ function initializeMap() {
   function locationFinder() {
 
     // initializes an empty array
+
     var locations = [];
 
     // adds the single location property from bio to the locations array
@@ -153,36 +154,110 @@ function initializeMap() {
   placeData is the object returned from search results containing information
   about a single location.
   */
+  // Mansoura was established in 1219 by al-Kamil of the Ayyubid dynasty. After the Egyptians defeated the Crusaders during the Sixth Crusade, it was named Mansoura (aka. "The Victorious").
   function createMapMarker(placeData) {
 
+                var mansoura  = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Mansoura</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Mansoura</b>,was established in 1219 by al-Kamil of the Ayyubid dynasty. ' +
+            ' After the Egyptians defeated the Crusaders during the Sixth Crusade,'+
+            ' it was named Mansoura (aka. "The Victorious").'+
+            '</p>'+
+            '</div>'+
+            '</div>';
+
+
+
+
+
+
+
+
+
+              var cairo  = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Cairo</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Cairo</b> The area around present-day Cairo, especially Memphis, had long been a focal point of Ancient Egypt ' +
+            ' due to its strategic location just upstream from the Nile Delta. However, the origins of the modern'+
+            '  city are generally traced back to a series of settlements in the first millennium. Around the turn '+
+            ' of the 4th century, as Memphis was continuing to decline in importance, the Romans established'+
+            '  a fortress town along the east bank of the Nile. This fortress, known as Babylon, remained the nucleus' +
+            ' of the Roman, and, later, the Byzantine, city and is the oldest structure in the city today. It is also'+
+            'situated at the nucleus of the Coptic Orthodox community, which separated from the Roman and Byzantine'+
+            "church in the late 4th century. Many of Cairo's oldest Coptic churches, including the Hanging Church,"+
+            'are located along the fortress walls in a section of the city known as Coptic Cairo.'+
+            '</p>'+
+            '</div>'+
+            '</div>';
+
+
+
+
+
+
+
+            var alex  = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Alexanderia</h1>'+
+            '<div id="bodyContent">'+
+            "<p><b>Alexander's</b>, chief architect for the project was Dinocrates. Alexandria was intended to supersede Naucratis as" +
+            ' a Hellenistic center in Egypt, and to be the link between Greece and the rich Nile valley. However, more recent '+
+            ' radiocarbon dating of seashell fragments and lead contamination predate this claim by two millennia [4]'+
+            'Alexandria was the intellectual and cultural center of the ancient world for some time.'+
+            ' The city and its museum attracted many of the greatest scholars, including Greeks, Jews and Syrians.'+
+            'The city was later plundered and lost its significance.'+
+            '</p>'+
+            '</div>'+
+            '</div>';
+
+
+console.log(placeData);
     // The next lines save location data from the search result object to local variables
     var lat = placeData.geometry.location.lat();  // latitude from the place service
-    var lon = placeData.geometry.location.lng();  // longitude from the place service
+    var lng = placeData.geometry.location.lng();  // longitude from the place service
     var name = placeData.formatted_address;   // name of the place from the place service
     var bounds = window.mapBounds;            // current boundaries of the map window
 
-    // marker is an object with additional data about the pin for a single location
-    var marker = new google.maps.Marker({
-      map: map,
-      position: placeData.geometry.location,
-      title: name
-    });
+    var citycontent;
+    if (placeData.id == "193d6332d2e033fb66b8a309e8c16a7fdc3720bd"){
+      citycontent = mansoura;
+
+    }
+    else if (placeData.id == "a0e1b9bbf82400da1813eb0880ebc39efd3ad15a"){
+      citycontent = cairo;
+    }
+        else if (placeData.id == "9484b9a4f80721c0a448916823ac7e3feaf59cf5"){
+      citycontent = alex;
+    }
 
     // infoWindows are the little helper windows that open when you click
     // or hover over a pin on a map. They usually contain more information
     // about a location.
     var infoWindow = new google.maps.InfoWindow({
-      content: name
+      content: citycontent
+    });
+
+    // marker is an object with additional data about the pin for a single location
+    var marker = new google.maps.Marker({
+      map: map,
+      position: placeData.geometry.location,
+      title:  name
     });
 
     // hmmmm, I wonder what this is about...
-    google.maps.event.addListener(marker, 'click', function() {
-      // your code goes here!
-    });
+          google.maps.event.addListener(marker, 'click', function() {
+                            infoWindow.open(map, marker);
+                    });
 
     // this is where the pin actually gets added to the map.
     // bounds.extend() takes in a map location object
-    bounds.extend(new google.maps.LatLng(lat, lon));
+    bounds.extend(new google.maps.LatLng(lat, lng));
     // fit the map to the new marker
     map.fitBounds(bounds);
     // center the map
@@ -239,11 +314,11 @@ Uncomment the code below when you're ready to implement a Google Map!
 */
 
 // Calls the initializeMap() function when the page loads
-//window.addEventListener('load', initializeMap);
+window.addEventListener('load', initializeMap);
 
 // Vanilla JS way to listen for resizing of the window
 // and adjust map bounds
-//window.addEventListener('resize', function(e) {
-  //Make sure the map bounds get updated on page resize
-//  map.fitBounds(mapBounds);
-//});
+window.addEventListener('resize', function(e) {
+  // Make sure the map bounds get updated on page resize
+ map.fitBounds(mapBounds);
+});
